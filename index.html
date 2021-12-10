@@ -90,7 +90,6 @@
 
         if(ev.target.className.includes("btn-warning")){
 
-
             const form = document.getElementById('add');
 
             const operation = {
@@ -98,15 +97,18 @@
                 montant: form.montant.valueAsNumber,
             }
 
-            fetch('http://localhost:4221/depenses/'+ev.target.closest('tr').getAttribute('id'), {
-                method: 'PUT',
-                body : JSON.stringify(operation) , headers :  {'Content-Type': 'application/json'}
-            }).then(response => {
-                if (response.status) {
-                    location.reload();
-                }
-            }).catch(reason => console.error(reason));
-
+            if (!isNaN(form.montant.valueAsNumber) && form.nom.value.length > 0) {
+                fetch('http://localhost:4221/depenses/'+ev.target.closest('tr').getAttribute('id'), {
+                    method: 'PUT',
+                    body : JSON.stringify(operation) , headers :  {'Content-Type': 'application/json'}
+                }).then(response => {
+                    if (response.status) {
+                        location.reload();
+                    }
+                }).catch(reason => console.error(reason));
+            } else {
+                alert('Vous devez insérer des valeurs correctes !')
+            }
         }
     })
 
@@ -118,15 +120,20 @@
             montant: ev.target.montant.valueAsNumber
         }
 
-        fetch('http://localhost:4221/depenses', {
-            method: 'POST',
-            body : JSON.stringify(operation) , headers :  {'Content-Type': 'application/json'}
-        }).then(response => {
-            if (response.status) {
-                location.reload();
-            }
-        })
-        .catch(reason => console.error(reason));
+        if (!isNaN(ev.target.montant.valueAsNumber) && ev.target.nom.value.length > 0) {
+
+            fetch('http://localhost:4221/depenses', {
+                method: 'POST',
+                body: JSON.stringify(operation), headers: {'Content-Type': 'application/json'}
+            }).then(response => {
+                if (response.status) {
+                    location.reload();
+                }
+            })
+                .catch(reason => console.error(reason));
+        } else  {
+            alert('Vous devez insérer des valeurs correctes !')
+        }
     })
 
 
