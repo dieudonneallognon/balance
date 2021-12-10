@@ -1,0 +1,29 @@
+{
+  "depenses": [
+    {
+      "nom": "mon opération achat",
+      "montant": -2000,
+      "id": 1
+    },
+    {
+      "id": 2,
+      "nom": "dépense",
+      "montant": 500
+    },
+    {
+      "nom": "mon opération",
+      "montant": 500,
+      "id": 3
+    },
+    {
+      "nom": "mon opération",
+      "montant": 1000,
+      "id": 4
+    },
+    {
+      "nom": "mon opération",
+      "montant": 78,
+      "id": 5
+    }
+  ]
+}
