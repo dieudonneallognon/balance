@@ -113,8 +113,6 @@
                 montant: ev.target.montant.valueAsNumber
             }
 
-            console.log(operation);
-
             if (!isNaN(operation.montant) && operation.nom.length >= 3) {
 
                 fetch('http://localhost:4221/depenses', {
@@ -145,11 +143,23 @@
                 return rows;
             }, []).join('')
 
-            document.getElementById('total-amount').innerHTML = data.reduce((total, op) => total += op.montant, 0);
+            const dataStats = data.reduce((stats, op) => {
+                stats.total += op.montant;
+                stats.depenses += op.montant > 0 ? op.montant : 0;
+                stats.recettes += op.montant < 0 ? op.montant : 0;
+                return stats;
+            }, {
+                total: 0,
+                depenses: 0,
+                recettes: 0
+            })
 
-            document.getElementById('depenses').innerText = data.reduce((total, op) => total += (op.montant > 0) ? op.montant : 0, 0)
 
-            document.getElementById('recettes').innerText = data.reduce((total, op) => total += (op.montant < 0) ? op.montant : 0, 0)
+            document.getElementById('total-amount').innerHTML = dataStats.total.toFixed(2);
+
+            document.getElementById('depenses').innerText = dataStats.depenses.toFixed(2);
+
+            document.getElementById('recettes').innerText = dataStats.recettes.toFixed(2);
         }
     </script>
 </body>
