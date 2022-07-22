@@ -1,5 +1,5 @@
 {
-  "dependencies": {
-    "json-server": "^0.17.0"
+  "scripts": {
+    "start": "npx json-server bdd/db.json --watch --port 4221"
   }
 }
